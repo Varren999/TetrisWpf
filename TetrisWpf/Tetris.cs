@@ -4,9 +4,6 @@
 using System;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
 using Log;
 
 namespace ConsoleApp
@@ -14,12 +11,13 @@ namespace ConsoleApp
     internal class Tetris
     {
         private Random random;
+        private readonly Stopwatch timer = new Stopwatch();
+        private long lastTimer;
 
         private const int WIDTH = 12, HEIGHT = 18;
 
-        private int speed = 1;
+        public int speed = 1;
         public int score = 0;
-        //private string player = "";
         private int thisFigure = 0;
         private int nextFigure = 0;
 
@@ -94,8 +92,7 @@ namespace ConsoleApp
                             {
                                 Game_Fields[(int)block[i].X, (int)block[i].Y] = 0;
                                 block[i].Y++;
-                            }
-                            break;
+                            } break;
 
                         case Move.FastDown:
                             while (!Collision())
@@ -109,8 +106,7 @@ namespace ConsoleApp
                                     Game_Fields[(int)block[i].X, (int)block[i].Y] = 0;
                                     block[i].Y++;
                                 }
-                            }
-                            break;
+                            } break;
 
 
                         case Move.Left:
@@ -118,16 +114,14 @@ namespace ConsoleApp
                             {
                                 Game_Fields[(int)block[i].X, (int)block[i].Y] = 0;
                                 block[i].X--;
-                            }
-                            break;
+                            } break;
 
                         case Move.Right:
                             for (int i = 0; i < block.Length; i++)
                             {
                                 Game_Fields[(int)block[i].X, (int)block[i].Y] = 0;
                                 block[i].X++;
-                            }
-                            break;
+                            } break;
 
                         case Move.Rotation:
                             if (thisFigure == 0) return; // Если фигура квадрат его вращать не нужно.
@@ -173,20 +167,22 @@ namespace ConsoleApp
             }
         }
 
-        // Фиксация блока на игровом поле.
+        /// <summary>
+        /// Метод фиксирует блок на игровом поле.
+        /// </summary>
         private void FixBlock()
         {
             for (int i = 0; i < block.Length; i++)
             {
                 if (block[i].Y >= 0 || block[i].X <= WIDTH - 1) // Проверяем, что блок в пределах видимой области
-                {
                     Game_Fields[(int)block[i].X, (int)block[i].Y] = 2; // 2 - зафиксированный блок
-                }
             }
             CheckCompletedLines();
         }
 
-        // Проверка заполненных линий.
+        /// <summary>
+        /// Метод проверяет заполненные линий.
+        /// </summary>
         private void CheckCompletedLines()
         {
             for (int y = HEIGHT - 2; y >= 0; y--) // Идем снизу вверх
@@ -211,7 +207,10 @@ namespace ConsoleApp
             }
         }
 
-        // Удаление заполненной линии и смещение вышележащих строк вниз
+        /// <summary>
+        /// Метод удаляет заполненные линии и смещяет вышележащие строки вниз.
+        /// </summary>
+        /// <param name="lineToRemove"></param>
         private void RemoveLine(int lineToRemove)
         {
             // Смещаем все строки выше удаляемой вниз
@@ -232,21 +231,16 @@ namespace ConsoleApp
             score += 100; 
         }
 
-        // Отрисовка экрана.
-        private void BuildingScene()
-        {
-            DrawFigure(1);
-            DrawMap();
-        }
-
-        // Метод рисует фигуру на игровом поле.
-        private void DrawFigure(int digits)
+        /// <summary>
+        /// Метод рисует фигуру на игровом поле.
+        /// </summary>
+        private void DrawFigure()
         {
             try
             {
                 for (int i = 0; i < block.Length; i++)
                 {
-                    Game_Fields[(int)block[i].X, (int)block[i].Y] = digits;
+                    Game_Fields[(int)block[i].X, (int)block[i].Y] = 1;
                 }
             }
             catch (Exception ex)
@@ -279,118 +273,31 @@ namespace ConsoleApp
             }
         }
 
-        // Код нужно поправить.
-        private string InfoPanel(int cols)
+        /// <summary>
+        /// Метод проверяет счет и ускоряет игру.
+        /// </summary>
+        /// <param name="Score"></param>
+        private void SpeedTest(int Score)
         {
-            string temp = "";
-            switch(cols)
+            switch(Score)
             {
-                case 0:
-                    temp = "###########"; break;
-                case 1:
-                    temp = "  Scope   #"; break;
-                case 2:
-                    temp = $"  {score}";
-                    while (temp.Length <= 9)
-                        temp = temp + " ";
-                    temp += "#"; break;
-                case 3:
-                    temp = "###########"; break;
-                case 4:
-                    temp = "  Speed   #"; break;
-                case 5:
-                    temp = $"  {speed}";
-                    while (temp.Length <= 9)
-                        temp = temp + " ";
-                    temp += "#"; break;
-                case 6:
-                    temp = "###########"; break;
-                case 7:
-                    temp = "   Next   #"; break;
-                case 8:
-                    temp = "          #"; break;
-                case 9:
-                    {
-                        switch(nextFigure)
-                        {
-                            case 0:
-                                temp = "   [][]   #"; break;
-                            case 1:
-                                temp = " [][][][] #"; break;
-                            case 2:
-                                temp = "  [][]    #"; break;
-                            case 3:
-                                temp = "    [][]  #"; break;
-                            case 4:
-                                temp = "  [][][]  #"; break;
-                            case 5:
-                                temp = "  [][][]  #"; break;
-                            case 6:
-                                temp = "    []    #"; break;
-                        }
-                    } break;
-                case 10:
-                    {
-                        switch (nextFigure)
-                        {
-                            case 0:
-                                temp = "   [][]   #"; break;
-                            case 1:
-                                temp = "          #"; break;
-                            case 2:
-                                temp = "    [][]  #"; break;
-                            case 3:
-                                temp = "  [][]    #"; break;
-                            case 4:
-                                temp = "  []      #"; break;
-                            case 5:
-                                temp = "      []  #"; break;
-                            case 6:
-                                temp = "  [][][]  #"; break;
-                        }
-                    } break;
-                case 11:
-                    temp = "          #"; break;
-                case 12:
-                    temp = "          #"; break;
-                case 13:
-                    temp = "          #"; break;
-                case 14:
-                    temp = "          #"; break;
-                case 15:
-                    temp = "          #"; break;
-                case 16:
-                    if(isPause)
-                        temp = "  Pause   #";
-                    else
-                        temp = "          #";
-                    break;
-                case 17:
-                            temp = "###########"; break;
-                        }
-            return temp;
-        }
+                case int n when n >= 0 && n < 2000: speed = 1; break;
 
-        private void SpeedTest(int Scope)
-        {
-            switch(Scope)
-            {
-                case int n when n >= 0 && n < 1000:
-                    speed = 1; break;
+                case int n when n >= 2000 && n < 4000: speed = 2; break;
 
-                case int n when n >= 1000 && n < 2000:
-                    speed = 2; break;
-
-                case int n when n >= 3000 && n < 4000:
-                    speed = 4; break;
+                case int n when n >= 4000 && n < 8000: speed = 3; break;
             }
         }
 
+        //
         public void Initialization()
         {
+            timer.Start();
+            lastTimer = timer.ElapsedMilliseconds;
             random = new Random(DateTime.Now.Millisecond);
             nextFigure = random.Next(0, 7);
             next_block = new Blocks(nextFigure);
+            DrawMap();
         }
 
         //
@@ -403,13 +310,17 @@ namespace ConsoleApp
                     Born_Block();
                 }
 
-                BuildingScene();
+                DrawMap();
+                DrawFigure();
 
-                //SpeedTest(score);
+                SpeedTest(score);
 
-                MoveBlock(Move.Down);
+                if (timer.ElapsedMilliseconds - lastTimer >= (1000 / speed) && !isPause)
+                {
+                    lastTimer = timer.ElapsedMilliseconds;
 
-                //Final();                
+                    MoveBlock(Move.Down);
+                }
             }
             catch(Exception ex)
             {

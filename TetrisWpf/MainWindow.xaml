@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetrisWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600" WindowStyle="ToolWindow" KeyDown="WindowKeyDown">
+        Title="MainWindow" Height="490" Width="450" WindowStyle="ToolWindow" KeyDown="WindowKeyDown" ResizeMode="NoResize">
     <Grid>
-        <Canvas x:Name="GameCanvas" Background="Black" Focusable="True"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="135"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="150"/>
+
+        </Grid.ColumnDefinitions>
+        <Canvas x:Name="GameCanvas" Grid.Column="0" Grid.Row="0" Background="Black" Focusable="True" Grid.RowSpan="3"/>
+        <Canvas x:Name="InfoCanvas" Grid.Column="1" Grid.Row="1" Background="Black"/>
+        <StackPanel Grid.Column="1" Grid.Row="0" Background="Black">
+            <TextBlock Text="score" Foreground="DarkSeaGreen"  FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock x:Name="Score" Text="0" Foreground="DarkSeaGreen" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock Text="speed" Foreground="DarkSeaGreen" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock x:Name="Speed" Text="0" Foreground="DarkSeaGreen" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+        </StackPanel>
     </Grid>
 </Window>
