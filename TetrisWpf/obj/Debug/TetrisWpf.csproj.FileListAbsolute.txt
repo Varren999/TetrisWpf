@@ -28,3 +28,11 @@ C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\TetrisWpf.csproj.CoreC
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\TetrisWpf.csproj.Up2Date
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\TetrisWpf.exe
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\TetrisWpf.pdb
+C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\MenuWindow.g.cs
+C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\MenuWindow.baml
+C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\Styles.baml
+C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\App.baml
+C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\InputWindow.g.cs
+C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\InputWindow.baml
+C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\Statistics.g.cs
+C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\Statistics.baml

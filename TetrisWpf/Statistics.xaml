@@ -1,0 +1,14 @@
+﻿<Window x:Class="TetrisWpf.Statistics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TetrisWpf"
+        mc:Ignorable="d"
+            Title="Tetris" Height="450" Width="450" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <DockPanel Background="LawnGreen">
+        <TextBlock Text="Статистика" DockPanel.Dock="Top" FontSize="24" Height="30" FontWeight="Bold" Background="LawnGreen" Foreground="#6A0DAD" HorizontalAlignment="Center" Margin="0 20 0 0"/>
+        <Button x:Name="Escape" Content="Назад" DockPanel.Dock="Bottom" Click="Escape_Click" Margin="0 0 0 10"/>
+        <ListBox x:Name="List" FontSize="16" Background="LawnGreen" Foreground="#6A0DAD"/>
+    </DockPanel>
+</Window>

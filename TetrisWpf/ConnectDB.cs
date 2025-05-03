@@ -10,6 +10,8 @@ namespace TetrisWpf
     {
         private readonly string path;
 
+        public List<Scores> collections;
+
         public ConnectDB(string path)
         {
             this.path = path;
@@ -32,26 +34,26 @@ namespace TetrisWpf
 
                     if (!reader.HasRows) throw new Exception("Таблица пуста");
 
-                    var collections = new List<Scopes>();
+                    collections = new List<Scores>();
 
                     while (reader.Read())
                     {
-                        var scope = new Scopes()
+                        var scope = new Scores()
                         {
                             Id = reader.GetInt32(0),
                             Player = reader.GetString(1),
-                            Scope = reader.GetInt32(2)
+                            Score = reader.GetInt32(2)
                         };
                         collections.Add(scope);
                     }
 
                     db.Close();
-                    int it = 0;
-                    foreach (var item in collections)
-                    {
-                        it++;
-                        Console.WriteLine($"{it}: {item.Player} {item.Scope}");
-                    }
+                    //int it = 0;
+                    //foreach (var item in collections)
+                    //{
+                    //    it++;
+                    //    Console.WriteLine($"{it}: {item.Player} {item.Score}");
+                    //}
                 }
                 else
                     throw new Exception("Файл не найден!");

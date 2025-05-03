@@ -30,12 +30,15 @@ namespace ConsoleApp
         public enum Move { Down, FastDown, Left, Right, Rotation};
 
         public int[,] Game_Fields = new int[WIDTH, HEIGHT];
+        public int[,] Info_Fields = new int[5, 4];
 
         /// <summary>
         /// Создаем новый блок.
         /// </summary>
         private void Born_Block()
         {
+            Info_Fields = null;
+            Info_Fields = new int[5, 4];
             block = next_block.Block;
             if (Collision())
                 isExit = true;
@@ -43,6 +46,13 @@ namespace ConsoleApp
             nextFigure = random.Next(0, 7);
             next_block = new Blocks(nextFigure);
             isBlock_Live = true;
+            for (int i = 0; i < next_block.Block.Length; i++)
+            {
+                if(nextFigure == 1)
+                    Info_Fields[(int)next_block.Block[i].X - 3, (int)next_block.Block[i].Y + 1] = 1;
+                else
+                    Info_Fields[(int)next_block.Block[i].X - 4, (int)next_block.Block[i].Y + 1] = 1;
+            }
         }
 
         /// <summary>

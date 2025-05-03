@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\App.xaml
-1219584333
+5839283895
 
-9-1431760099
+12-849427313
 24300296442
-MainWindow.xaml;
+InputWindow.xaml;MainWindow.xaml;MenuWindow.xaml;Statistics.xaml;Styles.xaml;
 
 False
 

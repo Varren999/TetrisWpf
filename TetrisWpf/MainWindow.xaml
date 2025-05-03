@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetrisWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="490" Width="450" WindowStyle="ToolWindow" KeyDown="WindowKeyDown" ResizeMode="NoResize">
-    <Grid>
+        Title="Tetris" Height="450" Width="450" WindowStyle="None" KeyDown="WindowKeyDown" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Background="LawnGreen">
         <Grid.RowDefinitions>
             <RowDefinition Height="135"/>
             <RowDefinition/>
@@ -17,13 +17,16 @@
             <ColumnDefinition Width="150"/>
 
         </Grid.ColumnDefinitions>
-        <Canvas x:Name="GameCanvas" Grid.Column="0" Grid.Row="0" Background="Black" Focusable="True" Grid.RowSpan="3"/>
-        <Canvas x:Name="InfoCanvas" Grid.Column="1" Grid.Row="1" Background="Black"/>
-        <StackPanel Grid.Column="1" Grid.Row="0" Background="Black">
-            <TextBlock Text="score" Foreground="DarkSeaGreen"  FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
-            <TextBlock x:Name="Score" Text="0" Foreground="DarkSeaGreen" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
-            <TextBlock Text="speed" Foreground="DarkSeaGreen" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
-            <TextBlock x:Name="Speed" Text="0" Foreground="DarkSeaGreen" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+        <Canvas x:Name="GameCanvas" Grid.Column="0" Grid.Row="0" Focusable="True" Grid.RowSpan="3"/>
+        <Canvas x:Name="InfoCanvas" Grid.Column="1" Grid.Row="1" />
+        <StackPanel Grid.Column="1" Grid.Row="0">
+            <TextBlock x:Name="Player" Text="Player" Foreground="BlueViolet"  FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock Text="score" Foreground="BlueViolet"  FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock x:Name="Score" Text="0" Foreground="BlueViolet" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock Text="speed" FontSize="20" Foreground="BlueViolet" FontWeight="Bold" TextAlignment="Center"/>
+            <TextBlock x:Name="Speed" Text="0" Foreground="BlueViolet"  FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
         </StackPanel>
+        <TextBlock x:Name="pause" Grid.Column="2" Grid.Row="2" Text="ПАУЗА" Foreground="BlueViolet" FontSize="20" FontWeight="Bold" TextAlignment="Center" Margin="0 40 0 0"/>
+        <Button x:Name="Exit" Grid.Column="2" Grid.Row="2" Content="Exit" Width="90" Height="25" VerticalAlignment="Bottom" Margin="0 0 0 24" Click="Exit_Click"/>
     </Grid>
 </Window>
