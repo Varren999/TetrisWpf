@@ -9,16 +9,15 @@ namespace TetrisWpf
     {
         public Statistics()
         {
-            ConnectDB connect = new ConnectDB("Score.db");
             InitializeComponent();
-            List.ItemsSource = connect.GetAll();
+            List.ItemsSource = ConnectDB.Instance.GetAll();
         }
 
         private void Escape_Click(object sender, RoutedEventArgs e)
         {
             MenuWindow menu = new MenuWindow();
             menu.Show();
-            Close();
+            this.Close();
         }
     }
 }

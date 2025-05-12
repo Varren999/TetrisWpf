@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetrisWpf"
         mc:Ignorable="d"
-            Title="Tetris" Height="450" Width="450" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+            Title="Tetris" Height="527" Width="450" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="LawnGreen">
         <TextBlock Text="T.E.T.R.I.S" FontSize="40" Height="45" FontWeight="Bold" Background="LawnGreen" Foreground="#6A0DAD" Margin="0,70,0,326" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Играть" Margin="0 0 0 5" Click="Play_Click"/>
             <Button Content="Управление" Margin="0 0 0 5" Click="Info_Click"/>
-            <Button Content="Статистика" Margin="0 0 0 5" Click="DB_Click"/>
+            <Button Content="Таблица рекордов" Margin="0 0 0 5" Click="DB_Click"/>
             <Button Content="Выйти" Click="Exit_Click"/>
         </StackPanel>
     </Grid>

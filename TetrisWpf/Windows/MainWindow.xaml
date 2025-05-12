@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetrisWpf"
         mc:Ignorable="d"
-        Title="Tetris" Height="450" Width="450" WindowStyle="None" KeyDown="WindowKeyDown" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Tetris" Height="527" Width="450" WindowStyle="None" KeyDown="WindowKeyDown" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="LawnGreen">
         <Grid.RowDefinitions>
-            <RowDefinition Height="135"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
 
         </Grid.ColumnDefinitions>
         <Canvas x:Name="GameCanvas" Grid.Column="0" Grid.Row="0" Focusable="True" Grid.RowSpan="3"/>

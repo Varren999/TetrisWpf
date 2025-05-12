@@ -19,10 +19,7 @@ namespace TetrisWpf
             Close();
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        private void Exit_Click( object sender, RoutedEventArgs e ) => Application.Current.Shutdown();
 
         private void Info_Click(object sender, RoutedEventArgs e)
         {
@@ -37,7 +34,7 @@ namespace TetrisWpf
         {
             Statistics statistics = new Statistics();
             statistics.Show();
-            Close();
+            this.Close();
         }
     }
 }

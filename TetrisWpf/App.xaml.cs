@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
 
 namespace TetrisWpf
@@ -13,5 +8,15 @@ namespace TetrisWpf
     /// </summary>
     public partial class App : Application
     {
+        ConnectDB connect = new ConnectDB( "Score.db" );
+
+        protected override void OnStartup( StartupEventArgs e )
+        {
+            // Настройка записи логов в файл
+            Trace.Listeners.Add( new TextWriterTraceListener( "log.txt" ) );
+            Trace.AutoFlush = true;
+
+            base.OnStartup( e );
+        }
     }
 }

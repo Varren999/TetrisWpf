@@ -4,7 +4,6 @@
 using System;
 using System.Diagnostics;
 using System.Windows;
-using Log;
 
 namespace ConsoleApp
 {
@@ -14,7 +13,7 @@ namespace ConsoleApp
         private readonly Stopwatch timer = new Stopwatch();
         private long lastTimer;
 
-        private const int WIDTH = 12, HEIGHT = 18;
+        private const int WIDTH = 12, HEIGHT = 21;
 
         public int speed = 1;
         public int score = 0;
@@ -61,22 +60,15 @@ namespace ConsoleApp
         /// <returns></returns>
         private bool Collision()
         {
-            try
+            for( int i = 0; i < block.Length; i++ )
             {
-                for (int i = 0; i < block.Length; i++)
-                {
-                    // Проверяем столкновение со стенами и дном.
-                    if (block[i].X <= 0 || block[i].X >= WIDTH - 1 || block[i].Y >= HEIGHT - 1 || block[i].Y < 0)
-                        return true;
+                // Проверяем столкновение со стенами и дном.
+                if( block[ i ].X <= 0 || block[ i ].X >= WIDTH - 1 || block[ i ].Y >= HEIGHT - 1 || block[ i ].Y < 0 )
+                    return true;
 
-                    // Проверка столкновения с другими фигурами.
-                    if (block[i].Y >= 0 && Game_Fields[(int)block[i].X, (int)block[i].Y] == 2)
-                        return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.TargetSite + " " + ex.Message);
+                // Проверка столкновения с другими фигурами.
+                if( block[ i ].Y >= 0 && Game_Fields[ ( int ) block[ i ].X, ( int ) block[ i ].Y ] == 2 )
+                    return true;
             }
             return false;
         }
@@ -85,95 +77,93 @@ namespace ConsoleApp
         /// Метод движения блока.
         /// </summary>
         /// <param name="move"></param>
-        public void MoveBlock(Move move)
+        public void MoveBlock( Move move )
         {
-            try
+            if( !isPause ) // Если игра на паузе блоки не двигаются)).
             {
-                if (!isPause) // Если игра на паузе блоки не двигаются)).
+                // Сохраняем текущее положение на случай отката.
+                Point[] oldPosition = new Point[ block.Length ];
+                Array.Copy( block, oldPosition, block.Length );
+
+                switch( move )
                 {
-                    // Сохраняем текущее положение на случай отката.
-                    Point[] oldPosition = new Point[block.Length];
-                    Array.Copy(block, oldPosition, block.Length);
-
-                    switch (move)
-                    {
-                        case Move.Down:
-                            for (int i = 0; i < block.Length; i++)
-                            {
-                                Game_Fields[(int)block[i].X, (int)block[i].Y] = 0;
-                                block[i].Y++;
-                            } break;
-
-                        case Move.FastDown:
-                            while (!Collision())
-                            {
-                                // Сохраняем текущее положение на случай отката.
-                                oldPosition = new Point[block.Length];
-                                Array.Copy(block, oldPosition, block.Length);
-
-                                for (int i = 0; i < block.Length; i++)
-                                {
-                                    Game_Fields[(int)block[i].X, (int)block[i].Y] = 0;
-                                    block[i].Y++;
-                                }
-                            } break;
-
-
-                        case Move.Left:
-                            for (int i = 0; i < block.Length; i++)
-                            {
-                                Game_Fields[(int)block[i].X, (int)block[i].Y] = 0;
-                                block[i].X--;
-                            } break;
-
-                        case Move.Right:
-                            for (int i = 0; i < block.Length; i++)
-                            {
-                                Game_Fields[(int)block[i].X, (int)block[i].Y] = 0;
-                                block[i].X++;
-                            } break;
-
-                        case Move.Rotation:
-                            if (thisFigure == 0) return; // Если фигура квадрат его вращать не нужно.
-                            Point center;
-                            if (thisFigure == 6) // Если фигура T то центр вращения 3 точка массива у остальных фигур вторая.
-                                center = block[2];
-                            else
-                                center = block[1];
-                            Point[] newPositions = new Point[4];
-
-                            for (int i = 0; i < 4; i++)
-                            {
-                                // Вычисляем новые координаты после поворота
-                                int newX = (int)(center.X - (block[i].Y - center.Y));
-                                int newY = (int)(center.Y + (block[i].X - center.X));
-                                newPositions[i] = new Point(newX, newY);
-                            }
-
-                            // Применяем новые позиции
-                            for (int i = 0; i < 4; i++)
-                            {
-                                Game_Fields[(int)block[i].X, (int)block[i].Y] = 0;
-                                block[i] = newPositions[i];
-                            }
-                            break;
-                    }
-
-                    // Если после движения произошло столкновение - возвращаем старое положение
-                    if (Collision())
-                    {
-                        Array.Copy(oldPosition, block, block.Length);
-                        if (move == Move.Down || move == Move.FastDown)
+                    case Move.Down:
+                        for( int i = 0; i < block.Length; i++ )
                         {
-                            FixBlock();
-                            isBlock_Live = false;
+                            Game_Fields[ ( int ) block[ i ].X, ( int ) block[ i ].Y ] = 0;
+                            block[ i ].Y++;
                         }
+                        break;
+
+                    case Move.FastDown:
+                        while( !Collision() )
+                        {
+                            // Сохраняем текущее положение на случай отката.
+                            oldPosition = new Point[ block.Length ];
+                            Array.Copy( block, oldPosition, block.Length );
+
+                            for( int i = 0; i < block.Length; i++ )
+                            {
+                                Game_Fields[ ( int ) block[ i ].X, ( int ) block[ i ].Y ] = 0;
+                                block[ i ].Y++;
+                            }
+                        }
+                        break;
+
+
+                    case Move.Left:
+                        for( int i = 0; i < block.Length; i++ )
+                        {
+                            Game_Fields[ ( int ) block[ i ].X, ( int ) block[ i ].Y ] = 0;
+                            block[ i ].X--;
+                        }
+                        break;
+
+                    case Move.Right:
+                        for( int i = 0; i < block.Length; i++ )
+                        {
+                            Game_Fields[ ( int ) block[ i ].X, ( int ) block[ i ].Y ] = 0;
+                            block[ i ].X++;
+                        }
+                        break;
+
+                    case Move.Rotation:
+                        if( thisFigure == 0 )
+                            return; // Если фигура квадрат его вращать не нужно.
+                        Point center;
+                        if( thisFigure == 6 ) // Если фигура T то центр вращения 3 точка массива у остальных фигур вторая.
+                            center = block[ 2 ];
+                        else
+                            center = block[ 1 ];
+                        Point[] newPositions = new Point[ 4 ];
+
+                        for( int i = 0; i < 4; i++ )
+                        {
+                            // Вычисляем новые координаты после поворота
+                            int newX = ( int ) ( center.X - ( block[ i ].Y - center.Y ) );
+                            int newY = ( int ) ( center.Y + ( block[ i ].X - center.X ) );
+                            newPositions[ i ] = new Point( newX, newY );
+                        }
+
+                        // Применяем новые позиции
+                        for( int i = 0; i < 4; i++ )
+                        {
+                            Game_Fields[ ( int ) block[ i ].X, ( int ) block[ i ].Y ] = 0;
+                            block[ i ] = newPositions[ i ];
+                        }
+                        break;
+                }
+
+                // Если после движения произошло столкновение - возвращаем старое положение
+                if( Collision() )
+                {
+                    Array.Copy( oldPosition, block, block.Length );
+                    if( move == Move.Down || move == Move.FastDown )
+                    {
+                        FixBlock();
+                        isBlock_Live = false;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.TargetSite + " " + ex.Message);
             }
         }
 
@@ -184,8 +174,8 @@ namespace ConsoleApp
         {
             for (int i = 0; i < block.Length; i++)
             {
-                if (block[i].Y >= 0 || block[i].X <= WIDTH - 1) // Проверяем, что блок в пределах видимой области
-                    Game_Fields[(int)block[i].X, (int)block[i].Y] = 2; // 2 - зафиксированный блок
+                if (block[i].Y >= 0 || block[i].X <= WIDTH - 1)
+                    Game_Fields[(int)block[i].X, (int)block[i].Y] = 2;
             }
             CheckCompletedLines();
         }
@@ -195,7 +185,7 @@ namespace ConsoleApp
         /// </summary>
         private void CheckCompletedLines()
         {
-            for (int y = HEIGHT - 2; y >= 0; y--) // Идем снизу вверх
+            for (int y = HEIGHT - 2; y >= 0; y--)
             {
                 bool lineComplete = true;
 
@@ -210,10 +200,7 @@ namespace ConsoleApp
                 }
 
                 if (lineComplete)
-                {
-                    RemoveLine(y);
-                    y++;
-                }
+                    RemoveLine(y++);
             }
         }
 
@@ -225,18 +212,12 @@ namespace ConsoleApp
         {
             // Смещаем все строки выше удаляемой вниз
             for (int y = lineToRemove; y > 0; y--)
-            {
                 for (int x = 1; x < WIDTH - 1; x++)
-                {
                     Game_Fields[x, y] = Game_Fields[x, y - 1];
-                }
-            }
 
             // Очищаем верхнюю строку
             for (int x = 1; x < WIDTH - 1; x++)
-            {
                 Game_Fields[x, 0] = 0;
-            }
 
             score += 100; 
         }
@@ -246,40 +227,22 @@ namespace ConsoleApp
         /// </summary>
         private void DrawFigure()
         {
-            try
-            {
-                for (int i = 0; i < block.Length; i++)
-                {
-                    Game_Fields[(int)block[i].X, (int)block[i].Y] = 1;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.TargetSite + " " + ex.Message);
-            }
+            for( int i = 0; i < block.Length; i++ )
+                Game_Fields[ ( int ) block[ i ].X, ( int ) block[ i ].Y ] = 1;
         }
 
         // Метод рисует игровое поле.
         private void DrawMap()
         {
-            try 
-            {
-                // Рисуем дно.
-                for (int x = 0; x < WIDTH; x++)
-                {
-                    Game_Fields[x, HEIGHT - 1] = 6;
-                }
+            // Рисуем дно.
+            for( int x = 0; x < WIDTH; x++ )
+                Game_Fields[ x, HEIGHT - 1 ] = 6;
 
-                // Рисуем стены.
-                for (int y = 0; y < HEIGHT; y++)
-                {
-                    Game_Fields[0, y] = 5;
-                    Game_Fields[WIDTH - 1, y] = 5;
-                }
-            }
-            catch(Exception ex)
+            // Рисуем стены.
+            for( int y = 0; y < HEIGHT; y++ )
             {
-                Logger.Error(ex.TargetSite + " " + ex.Message);
+                Game_Fields[ 0, y ] = 5;
+                Game_Fields[ WIDTH - 1, y ] = 5;
             }
         }
 
@@ -299,7 +262,9 @@ namespace ConsoleApp
             }
         }
 
-        //
+        /// <summary>
+        /// Инициализация внутриигровых параметров.
+        /// </summary>
         public void Initialization()
         {
             timer.Start();
@@ -313,29 +278,25 @@ namespace ConsoleApp
         //
         public void Play()
         {
-            try
+            if( !isBlock_Live )           
+                Born_Block();
+            
+            DrawMap();
+            DrawFigure();
+
+            SpeedTest( score );
+
+            if( timer.ElapsedMilliseconds - lastTimer >= ( 1000 / ( speed * 0.75 ) ) && !isPause )
             {
-                if (!isBlock_Live)
-                {
-                    Born_Block();
-                }
+                lastTimer = timer.ElapsedMilliseconds;
 
-                DrawMap();
-                DrawFigure();
-
-                SpeedTest(score);
-
-                if (timer.ElapsedMilliseconds - lastTimer >= (1000 / speed) && !isPause)
-                {
-                    lastTimer = timer.ElapsedMilliseconds;
-
-                    MoveBlock(Move.Down);
-                }
+                MoveBlock( Move.Down );
             }
-            catch(Exception ex)
-            {
-                Logger.Error(ex.TargetSite + ex.Message);
-            }
+        }
+
+        public void Dispos()
+        {
+            timer.Stop();
         }
     }
 }

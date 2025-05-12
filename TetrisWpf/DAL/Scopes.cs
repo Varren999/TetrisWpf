@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System;
-
-namespace TetrisWpf
+﻿namespace TetrisWpf
 {
     class Scores
     {

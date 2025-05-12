@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TetrisWpf"
         mc:Ignorable="d"
-        Title="Tetris" Height="450" Width="450" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Tetris" Height="527" Width="450" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Background="LawnGreen">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Введите имя" FontSize="20" Height="30" FontWeight="Bold" Background="LawnGreen" Foreground="#6A0DAD" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 10"/>
-            <TextBox x:Name="Name" FontSize="20" Height="30" Width="170" FontWeight="Bold" Background="White" Foreground="#6A0DAD" Margin="0 0 0 10"/>
+            <TextBox x:Name="PlayerName" FontSize="20" Height="30" Width="170" FontWeight="Bold" Background="White" Foreground="#6A0DAD" Margin="0 0 0 10"/>
             <Button x:Name="Enter" Content="Принять" Click="Enter_Click"/>
         </StackPanel>
     </Grid>

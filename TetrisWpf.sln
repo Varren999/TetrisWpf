@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
+VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TetrisWpf", "TetrisWpf\TetrisWpf.csproj", "{F896E92F-B342-4D92-A732-446BBBE41ED7}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Tetris", "Tetris\Tetris.vdproj", "{8FB17018-D6B4-A0EF-4CC6-7235E3D3951F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{F896E92F-B342-4D92-A732-446BBBE41ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F896E92F-B342-4D92-A732-446BBBE41ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F896E92F-B342-4D92-A732-446BBBE41ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FB17018-D6B4-A0EF-4CC6-7235E3D3951F}.Debug|Any CPU.ActiveCfg = Debug
+		{8FB17018-D6B4-A0EF-4CC6-7235E3D3951F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

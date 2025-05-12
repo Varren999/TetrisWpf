@@ -5,7 +5,6 @@ C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\obj\Debug\TetrisWpf_MarkupCompil
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\bin\Debug\TetrisWpf.exe.config
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\bin\Debug\TetrisWpf.exe
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\bin\Debug\TetrisWpf.pdb
-C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\bin\Debug\Logger.dll
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\bin\Debug\Microsoft.Data.Sqlite.dll
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\bin\Debug\SQLitePCLRaw.batteries_v2.dll
 C:\Users\varre\source\repos\TetrisWpf\TetrisWpf\bin\Debug\SQLitePCLRaw.core.dll

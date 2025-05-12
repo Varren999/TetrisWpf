@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Diagnostics;
 
 namespace TetrisWpf
 {
@@ -19,7 +20,6 @@ namespace TetrisWpf
         private readonly string player;
         private DispatcherTimer timer;
         Tetris tetris = new Tetris();
-        ConnectDB connect;
         public MainWindow(string Name)
         {
             if (Name == "")
@@ -32,7 +32,6 @@ namespace TetrisWpf
 
         private void InitialGame()
         {
-            connect = new ConnectDB("Score.db");
             Player.Text = player;
             tetris.score = 0;
             tetris.speed = 1;
@@ -81,32 +80,44 @@ namespace TetrisWpf
         //
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Rendering();
-            RenderingInfo();
-
-            tetris.Play();
-            Score.Text = Convert.ToString(tetris.score);
-            Speed.Text = Convert.ToString(tetris.speed);
-            if (tetris.isPause)
-                pause.Text = "PAUSE";
-            else
-                pause.Text = "";
-
-            if (tetris.isExit)
+            try
             {
-                GameOver();
-                return;
+                Rendering();
+                RenderingInfo();
+
+                tetris.Play();
+                Score.Text = Convert.ToString( tetris.score );
+                Speed.Text = Convert.ToString( tetris.speed );
+                if( tetris.isPause )
+                    pause.Text = "PAUSE";
+                else
+                    pause.Text = "";
+
+                if( tetris.isExit )
+                    GameOver();
+            }
+            catch( Exception ex )
+            {
+                Trace.TraceError(ex.Message);
             }
         }
 
         //
         private void GameOver()
         {
-            timer.Stop();
-            connect.Add(new Scores(player, tetris.score));
-            MenuWindow menu = new MenuWindow();
-            menu.Show();
-            Close();
+            try
+            {
+                timer.Stop();
+                ConnectDB.Instance.Add( new Scores( player, tetris.score ) );
+                tetris.Dispos();
+                MenuWindow menu = new MenuWindow();
+                menu.Show();
+                this.Close();
+            }
+            catch( Exception ex )
+            {
+                Trace.TraceError( ex.Message );
+            }
         }
 
         //
@@ -199,6 +210,6 @@ namespace TetrisWpf
 
         }
 
-        private void Exit_Click(object sender, RoutedEventArgs e) => GameOver();
+        private void Exit_Click( object sender, RoutedEventArgs e ) => GameOver();
     }
 }
